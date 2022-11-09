@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 import time
-from sensor import UltrasonicSensor
+from ultrasonic_sensor import UltrasonicSensor
 from event import Event
 
 def main():
