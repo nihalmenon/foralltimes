@@ -32,6 +32,7 @@ class UltrasonicSensor:
         total_time = self.pulse_end - self.pulse_start
         distance = SPEED_OF_SOUND * total_time
         self.distance = distance
+        print(self.distance)
 
     def read_distance(self, gpio):
         self.send_pulse()

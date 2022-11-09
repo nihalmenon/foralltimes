@@ -6,8 +6,8 @@ from event import Event
 def main():
     
     # Pins where the sensors are connected to the PI
-    TRIG_1 = 20
-    ECHO_1 = 21
+    TRIG_1 = 25
+    ECHO_1 = 12
     TRIG_2 = 23
     ECHO_2 = 24
     
