@@ -10,7 +10,7 @@ def setup(sensor):
     GPIO.output(sensor.trigger, False)
 
 def sendPulse(sensor):
-    time.sleep(1)
+    time.sleep(0.5)
     GPIO.output(sensor.trigger, True)
     time.sleep(0.00001)
     GPIO.output(sensor.trigger, False)
@@ -32,8 +32,6 @@ def readDistance(sensor):
         sensor.pulse_end = time.time()
     calcDistance(sensor)
 
-
-
 def main():
     
     # Pins where the sensors are connected to the PI
@@ -43,8 +41,8 @@ def main():
     ECHO_2 = 24
     
     
-    WALL_DISTANCE = 50
-    TOLERANCE = 15
+    WALL_DISTANCE = 25
+    TOLERANCE = 5
 
     # Initialize sensors
     enter_sensor = UltrasonicSensor("enter", TRIG_1, ECHO_1)
@@ -63,17 +61,54 @@ def main():
 
     while True:
         readDistance(enter_sensor)
-        time.sleep(0.5)
+        time.sleep(0.1)
         readDistance(exit_sensor)
 
+        if(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
+            while(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
+                time.sleep(0.1)
+                readDistance(enter_sensor)
+
+            # take 3 pictures
+            print("Person entering")
+
+            start_time = time.time()
+            while True:
+                if time.time() - start_time > 5:
+                    break
+                time.sleep(0.1)
+                readDistance(exit_sensor)
+                if(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
+                    while(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
+                        time.sleep(0.1)
+                        readDistance(exit_sensor)
+                    
+                    break
         
-            
+        if(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
+            while(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
+                time.sleep(0.1)
+                readDistance(exit_sensor)
+
+            # take 3 pictures
+            print("Person entering")
+
+            start_time = time.time()
+            while True:
+                if time.time() - start_time > 5:
+                    break
+                time.sleep(0.1)
+                readDistance(enter_sensor)
+                if(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
+                    while(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
+                        time.sleep(0.1)
+                        readDistance(exit_sensor)
+                    
+                    break
 
 
 
-
-
-
+        
 if __name__ == "__main__":
     main()
 
