@@ -34,11 +34,11 @@ print("Distance:",distance,"cm")
 
 GPIO.cleanup()
 
-WALL_DISTANCE = 0 # need to test for this values
-error = 0 # need to test for this values
+WALL_DISTANCE = distance # need to test for this values
+# error = 0 # need to test for this values
 
 # Now check if any object is closer than the wall
 
-if abs(WALL_DISTANCE - distance) > error:
+# if abs(WALL_DISTANCE - distance) > error:
     # make thermal camera take a picture
-
+    
