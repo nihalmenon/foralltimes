@@ -3,6 +3,37 @@ import time
 from ultrasonic_sensor import UltrasonicSensor
 from event import Event
 
+def setup(sensor):
+    print("Setting up sensor: " + sensor.name)
+    GPIO.setup(sensor.trigger, GPIO.OUT) 
+    GPIO.setup(sensor.echo, GPIO.IN)
+    GPIO.output(sensor.trigger, False)
+
+def sendPulse(sensor):
+    time.sleep(1)
+    GPIO.output(sensor.trigger, True)
+    time.sleep(0.00001)
+    GPIO.output(sensor.trigger, False)
+    print("Pulse sent from sensor: " + sensor.name)
+
+def calcDistance(sensor):
+    SPEED_OF_SOUND = 17150
+    total_time = sensor.pulse_end - sensor.pulse_start
+    distance = SPEED_OF_SOUND * total_time
+    sensor.distance = distance
+    print(sensor.distance)
+
+def readDistance(sensor):
+    sendPulse(sensor)
+    print("Reading sensor: " + sensor.name)
+    while GPIO.input(sensor.echo) == 0:
+        sensor.pulse_start = time.time()
+    while GPIO.input(sensor.echo) == 1:
+        sensor.pulse_end = time.time()
+    calcDistance(sensor)
+
+
+
 def main():
     
     # Pins where the sensors are connected to the PI
@@ -23,18 +54,17 @@ def main():
     print(exit_sensor)
 
     # Initalize GPIO
-    gpio = GPIO()
-    gpio.setmode(gpio.BCM)
-    gpio.setwarnings(False)
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
 
     # Setting up sensors
-    enter_sensor.setup(gpio)
-    exit_sensor.setup(gpio)
+    setup(enter_sensor)
+    setup(exit_sensor)
 
     while True:
-        enter_sensor.read_distance()
+        readDistance(enter_sensor)
         time.sleep(0.5)
-        exit_sensor.read_distance()
+        readDistance(exit_sensor)
 
         
             
