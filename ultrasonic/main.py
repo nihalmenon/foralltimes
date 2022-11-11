@@ -59,7 +59,9 @@ def main():
     setup(enter_sensor)
     setup(exit_sensor)
     i=0
+    counter = 0
     while i<100:
+        print(counter)
         readDistance(enter_sensor)
         time.sleep(0.1)
         readDistance(exit_sensor)
@@ -86,7 +88,7 @@ def main():
                         print("Waiting for person to leave exit sensor")
                         time.sleep(0.1)
                         readDistance(exit_sensor)
-                    
+                    counter+=1
                     break
         
         elif(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
@@ -110,7 +112,7 @@ def main():
                         print("Waiting for person to leave enter sensor 1")
                         time.sleep(0.1)
                         readDistance(enter_sensor)
-                    
+                    counter-=1
                     break
 
         i+=1
