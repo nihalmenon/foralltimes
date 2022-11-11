@@ -135,7 +135,7 @@ def main():
         i+=1
     for i in output:
         x = json.dumps(i)
-        mqttc.publish("Test", i, qos=1)
+        mqttc.publish("Test", x, qos=1)
 
     GPIO.cleanup()
         
