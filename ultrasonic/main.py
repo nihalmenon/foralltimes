@@ -61,7 +61,7 @@ def main():
     i=0
     counter = 0
     while i<100:
-        print(counter)
+        print("Counter:", counter)
         readDistance(enter_sensor)
         time.sleep(0.1)
         readDistance(exit_sensor)
@@ -79,6 +79,7 @@ def main():
             while True:
                 print("Waiting for person to reach exit sensor")
                 if time.time() - start_time > 10:
+                    print("10 second timeout")
                     break
                 time.sleep(0.1)
                 readDistance(exit_sensor)
@@ -104,6 +105,7 @@ def main():
             while True:
                 print("Waiting for person to reach enter sensor 1")
                 if time.time() - start_time > 10:
+                    print("10 second timeout")
                     break
                 time.sleep(0.1)
                 readDistance(enter_sensor)
