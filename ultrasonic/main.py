@@ -58,14 +58,15 @@ def main():
     # Setting up sensors
     setup(enter_sensor)
     setup(exit_sensor)
-
-    while True:
+    i=0
+    while i<100:
         readDistance(enter_sensor)
         time.sleep(0.1)
         readDistance(exit_sensor)
 
         if(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
             while(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
+                print("Waiting for person to leave enter sensor")
                 time.sleep(0.1)
                 readDistance(enter_sensor)
 
@@ -74,40 +75,47 @@ def main():
 
             start_time = time.time()
             while True:
-                if time.time() - start_time > 5:
+                print("Waiting for person to reach exit sensor")
+                if time.time() - start_time > 10:
                     break
                 time.sleep(0.1)
                 readDistance(exit_sensor)
                 if(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
+                    
                     while(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
+                        print("Waiting for person to leave exit sensor")
                         time.sleep(0.1)
                         readDistance(exit_sensor)
                     
                     break
         
-        if(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
+        elif(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
             while(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
+                print("Waiting for person to leave exit sensor 1")
                 time.sleep(0.1)
                 readDistance(exit_sensor)
 
             # take 3 pictures
-            print("Person entering")
+            print("Person exiting")
 
             start_time = time.time()
             while True:
-                if time.time() - start_time > 5:
+                print("Waiting for person to reach enter sensor 1")
+                if time.time() - start_time > 10:
                     break
                 time.sleep(0.1)
                 readDistance(enter_sensor)
                 if(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                     while(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
+                        print("Waiting for person to leave enter sensor 1")
                         time.sleep(0.1)
-                        readDistance(exit_sensor)
+                        readDistance(enter_sensor)
                     
                     break
 
-
-
+        i+=1
+        
+    GPIO.cleanup()
         
 if __name__ == "__main__":
     main()

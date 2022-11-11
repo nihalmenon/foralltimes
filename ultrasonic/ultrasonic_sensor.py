@@ -11,7 +11,7 @@ class UltrasonicSensor:
         self.distance = -1
     
     def __str__(self):
-        return f"Trigger: {self.trigger}, Echo: {self.echo}, Pulse start: {self.pulse_start}, Pulse end: {self.pulse_end}, Distance: {self.curr_distance}"
+        return f"Trigger: {self.trigger}, Echo: {self.echo}, Pulse start: {self.pulse_start}, Pulse end: {self.pulse_end}, Distance: {self.distance}"
 
     
     

@@ -59,9 +59,9 @@ awshost = "a18avmdr8w67wa-ats.iot.us-west-2.amazonaws.com"                      
 awsport = 8883                                                                                                         # Port no.   
 clientId = "raspberry_pi"                                                                                              # Thing_Name
 thingName = "raspberry_pi"                                                                                             # Thing_Name
-caPath = "/home/pi/Desktop/AmazonRootCA1.pem"                                                                          # Root_CA_Certificate_Name
-certPath = "/Desktop/aws-keys/aed49816ac4323e5fa070623a0eccac0dc8052226a640bb8a919037ce26af135-certificate.pem.crt"    # <Thing_Name>.cert.pem
-keyPath = "/home/pi/Desktop/aws-keys/aed49816ac4323e5fa070623a0eccac0dc8052226a640bb8a919037ce26af135-private.pem.key" # <Thing_Name>.private.key
+caPath = "/home/pi/Desktop/foralltimes/aws-keys/AmazonRootCA1.pem"                                                                          # Root_CA_Certificate_Name
+certPath = "/home/pi/Desktop/foralltimes/aws-keys/aed49816ac4323e5fa070623a0eccac0dc8052226a640bb8a919037ce26af135-certificate.pem.crt"    # <Thing_Name>.cert.pem
+keyPath = "/home/pi/Desktop/foralltimes/aws-keys/aed49816ac4323e5fa070623a0eccac0dc8052226a640bb8a919037ce26af135-private.pem.key" # <Thing_Name>.private.key
 
 mqttc.tls_set(caPath, certfile=certPath, keyfile=keyPath, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)  # pass parameters
  
