@@ -41,7 +41,7 @@ def main():
     ECHO_2 = 24
     
     
-    WALL_DISTANCE = 25
+    WALL_DISTANCE = 40
     TOLERANCE = 5
 
     # Initialize sensors
