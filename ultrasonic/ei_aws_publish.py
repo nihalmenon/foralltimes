@@ -69,6 +69,7 @@ mqttc.connect(awshost, awsport, keepalive=60)               # connect to aws ser
  
 mqttc.loop_start()                                          # Start the loop
  
+'''
 # default code - will change later
 while 1==1:
     sleep(5)
@@ -101,4 +102,4 @@ while 1==1:
 
     else:
         print("waiting for connection...")                      
-
+'''

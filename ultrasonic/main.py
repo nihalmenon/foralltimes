@@ -137,12 +137,7 @@ def main():
         x = json.dumps(i)
         mqttc.publish("Test", i, qos=1)
 
-
     GPIO.cleanup()
         
 if __name__ == "__main__":
     main()
-
-
-
-
