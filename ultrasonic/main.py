@@ -3,6 +3,8 @@ import time
 from ultrasonic_sensor import UltrasonicSensor
 from event import Event
 
+from ei_aws_publish import *
+
 def setup(sensor):
     print("Setting up sensor: " + sensor.name)
     GPIO.setup(sensor.trigger, GPIO.OUT) 
@@ -60,7 +62,10 @@ def main():
     setup(exit_sensor)
     i=0
     counter = 0
-    while i<100:
+
+    output = []
+
+    while i<20:
         print("Counter:", counter)
         readDistance(enter_sensor)
         time.sleep(0.1)
@@ -90,6 +95,11 @@ def main():
                         time.sleep(0.1)
                         readDistance(exit_sensor)
                     counter+=1
+                    a = {
+                        'direction': 'In',
+                        'counter': counter
+                    }
+                    output.append(a)
                     break
         
         elif(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
@@ -115,10 +125,19 @@ def main():
                         time.sleep(0.1)
                         readDistance(enter_sensor)
                     counter-=1
+                    b = {
+                        'direction': 'Out',
+                        'counter': counter
+                    }
+                    output.append(b)
                     break
 
         i+=1
-        
+    for i in output:
+        x = json.dumps(i)
+        mqttc.publish("Test", i, qos=1)
+
+
     GPIO.cleanup()
         
 if __name__ == "__main__":
