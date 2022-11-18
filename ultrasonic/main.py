@@ -34,6 +34,9 @@ def readDistance(sensor):
         sensor.pulse_end = time.time()
     calcDistance(sensor)
 
+# def takePicture():
+    
+
 def main():
     
     # Pins where the sensors are connected to the PI
@@ -103,6 +106,7 @@ def main():
                     # output.append(a)
                     x = json.dumps(a)
                     mqttc.publish("Test", x, qos=1)
+                    takePicture()
                     break
         
         elif(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
@@ -136,6 +140,7 @@ def main():
                     # output.append(b)
                     x = json.dumps(a)
                     mqttc.publish("Test", x, qos=1)
+                    takePicture()
                     break
 
         i+=1
