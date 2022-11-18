@@ -4,6 +4,7 @@ from ultrasonic_sensor import UltrasonicSensor
 from event import Event
 
 from ei_aws_publish import *
+from thermalArray import takePicture
 
 def setup(sensor):
     print("Setting up sensor: " + sensor.name)
@@ -33,8 +34,6 @@ def readDistance(sensor):
     while GPIO.input(sensor.echo) == 1:
         sensor.pulse_end = time.time()
     calcDistance(sensor)
-
-# def takePicture():
     
 
 def main():
@@ -98,10 +97,12 @@ def main():
                         time.sleep(0.1)
                         readDistance(exit_sensor)
                     counter+=1
+                    pic = takePicture()
                     a = {
                         'time': time.time(),
                         'direction': 'In',
-                        'counter': counter
+                        'counter': counter,
+                        'thermal output': pic
                     }
                     # output.append(a)
                     x = json.dumps(a)
@@ -132,15 +133,18 @@ def main():
                         time.sleep(0.1)
                         readDistance(enter_sensor)
                     counter-=1
+                    pic = takePicture()
                     b = {
                         'time': time.time(),
                         'direction': 'Out',
-                        'counter': counter
+                        'counter': counter,
+                        'thermal output': pic
                     }
                     # output.append(b)
-                    x = json.dumps(a)
+                    
+                    x = json.dumps(b)
                     mqttc.publish("Test", x, qos=1)
-                    takePicture()
+                    
                     break
 
         i+=1
