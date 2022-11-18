@@ -96,10 +96,13 @@ def main():
                         readDistance(exit_sensor)
                     counter+=1
                     a = {
+                        'time': time.time(),
                         'direction': 'In',
                         'counter': counter
                     }
-                    output.append(a)
+                    # output.append(a)
+                    x = json.dumps(a)
+                    mqttc.publish("Test", x, qos=1)
                     break
         
         elif(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
@@ -126,16 +129,19 @@ def main():
                         readDistance(enter_sensor)
                     counter-=1
                     b = {
+                        'time': time.time(),
                         'direction': 'Out',
                         'counter': counter
                     }
-                    output.append(b)
+                    # output.append(b)
+                    x = json.dumps(a)
+                    mqttc.publish("Test", x, qos=1)
                     break
 
         i+=1
-    for i in output:
-        x = json.dumps(i)
-        mqttc.publish("Test", x, qos=1)
+    # for i in output:
+    #     x = json.dumps(i)
+    #     mqttc.publish("Test", x, qos=1)
 
     GPIO.cleanup()
         
