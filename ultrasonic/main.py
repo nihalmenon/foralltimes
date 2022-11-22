@@ -4,6 +4,7 @@ from ultrasonic_sensor import UltrasonicSensor
 from event import Event
 
 from ei_aws_publish import *
+from thermalArray import takePicture
 
 def setup(sensor):
     print("Setting up sensor: " + sensor.name)
@@ -33,6 +34,7 @@ def readDistance(sensor):
     while GPIO.input(sensor.echo) == 1:
         sensor.pulse_end = time.time()
     calcDistance(sensor)
+    
 
 def main():
     
@@ -95,11 +97,17 @@ def main():
                         time.sleep(0.1)
                         readDistance(exit_sensor)
                     counter+=1
+                    pic = takePicture()
                     a = {
+                        'time': time.time(),
                         'direction': 'In',
-                        'counter': counter
+                        'counter': counter,
+                        'thermal output': pic
                     }
-                    output.append(a)
+                    # output.append(a)
+                    x = json.dumps(a)
+                    mqttc.publish("Test", x, qos=1)
+                    takePicture()
                     break
         
         elif(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
@@ -125,17 +133,24 @@ def main():
                         time.sleep(0.1)
                         readDistance(enter_sensor)
                     counter-=1
+                    pic = takePicture()
                     b = {
+                        'time': time.time(),
                         'direction': 'Out',
-                        'counter': counter
+                        'counter': counter,
+                        'thermal output': pic
                     }
-                    output.append(b)
+                    # output.append(b)
+                    
+                    x = json.dumps(b)
+                    mqttc.publish("Test", x, qos=1)
+                    
                     break
 
         i+=1
-    for i in output:
-        x = json.dumps(i)
-        mqttc.publish("Test", x, qos=1)
+    # for i in output:
+    #     x = json.dumps(i)
+    #     mqttc.publish("Test", x, qos=1)
 
     GPIO.cleanup()
         
