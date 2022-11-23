@@ -23,13 +23,17 @@ mqttc.on_message = on_message                               # assign on_message 
 #mqttc.on_log = on_log
 
 #### AWS CERTIFICATION PATHS #### 
-awshost = "a18avmdr8w67wa-ats.iot.us-west-2.amazonaws.com"                                                             # Endpoint
-awsport = 8883                                                                                                         # Port no.   
-clientId = "raspberry_pi"                                                                                              # Thing_Name
-thingName = "raspberry_pi"                                                                                             # Thing_Name
-caPath = "/home/pi/Desktop/foralltimes/aws-keys/AmazonRootCA1.pem"                                                                          # Root_CA_Certificate_Name
-certPath = "/home/pi/Desktop/foralltimes/aws-keys/aed49816ac4323e5fa070623a0eccac0dc8052226a640bb8a919037ce26af135-certificate.pem.crt"    # <Thing_Name>.cert.pem
-keyPath = "/home/pi/Desktop/foralltimes/aws-keys/aed49816ac4323e5fa070623a0eccac0dc8052226a640bb8a919037ce26af135-private.pem.key" # <Thing_Name>.private.key
+awshost = "a18avmdr8w67wa-ats.iot.us-east-2.amazonaws.com" # Endpoint
+awsport = 8883 # Port no.   
+clientId = "raspberry_pi" # Thing_Name
+thingName = "raspberry_pi"
+
+#dirpath = "/Users/kieranhulsman/Coding/SE-101/foralltimes/foralltimes" # kieran's local
+dirpath = "/home/pi/Desktop/foralltimes/" # raspi
+
+caPath = dirpath + "/aws-keys/AmazonRootCA1.pem"
+certPath = dirpath + "/aws-keys/18e60f6a557bb07c315742faf1d00480e4fb3db3cf8d6b403a1dc3aaff799d41-certificate.pem.crt"
+keyPath = dirpath + "/aws-keys/18e60f6a557bb07c315742faf1d00480e4fb3db3cf8d6b403a1dc3aaff799d41-private.pem.key"
  
 mqttc.tls_set(caPath, certfile=certPath, keyfile=keyPath, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None)      
  

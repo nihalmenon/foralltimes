@@ -3,7 +3,7 @@ import time
 from ultrasonic_sensor import UltrasonicSensor
 from event import Event
 
-from ei_aws_publish import *
+from ..aws_scripts import aws_publish as awspub
 from thermalArray import takePicture
 
 def setup(sensor):
@@ -105,8 +105,8 @@ def main():
                         'thermal output': pic
                     }
                     # output.append(a)
-                    x = json.dumps(a)
-                    mqttc.publish("Test", x, qos=1)
+                    x = awspub.json.dumps(a)
+                    awspub.mqttc.publish("Test", x, qos=1)
                     takePicture()
                     break
         
@@ -142,15 +142,15 @@ def main():
                     }
                     # output.append(b)
                     
-                    x = json.dumps(b)
-                    mqttc.publish("Test", x, qos=1)
+                    x = awspub.json.dumps(b)
+                    awspub.mqttc.publish("Test", x, qos=1)
                     
                     break
 
         i+=1
     # for i in output:
-    #     x = json.dumps(i)
-    #     mqttc.publish("Test", x, qos=1)
+    #     x = awspub.json.dumps(i)
+    #     awspub.mqttc.publish("Test", x, qos=1)
 
     GPIO.cleanup()
         
