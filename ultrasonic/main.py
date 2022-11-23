@@ -13,7 +13,7 @@ def setup(sensor):
     GPIO.output(sensor.trigger, False)
 
 def sendPulse(sensor):
-    time.sleep(0.5)
+    time.sleep(0.2)
     GPIO.output(sensor.trigger, True)
     time.sleep(0.00001)
     GPIO.output(sensor.trigger, False)
@@ -45,8 +45,8 @@ def main():
     ECHO_2 = 24
     
     
-    WALL_DISTANCE = 40
-    TOLERANCE = 5
+    WALL_DISTANCE = 100
+    TOLERANCE = 20
 
     # Initialize sensors
     enter_sensor = UltrasonicSensor("enter", TRIG_1, ECHO_1)
@@ -88,13 +88,13 @@ def main():
                 if time.time() - start_time > 10:
                     print("10 second timeout")
                     break
-                time.sleep(0.1)
+                time.sleep(0.05)
                 readDistance(exit_sensor)
                 if(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                     
                     while(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                         print("Waiting for person to leave exit sensor")
-                        time.sleep(0.1)
+                        time.sleep(0.05)
                         readDistance(exit_sensor)
                     counter+=1
                     pic = takePicture()
@@ -113,7 +113,7 @@ def main():
         elif(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
             while(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                 print("Waiting for person to leave exit sensor 1")
-                time.sleep(0.1)
+                time.sleep(0.05)
                 readDistance(exit_sensor)
 
             # take 3 pictures
@@ -125,12 +125,12 @@ def main():
                 if time.time() - start_time > 10:
                     print("10 second timeout")
                     break
-                time.sleep(0.1)
+                time.sleep(0.05)
                 readDistance(enter_sensor)
                 if(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                     while(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                         print("Waiting for person to leave enter sensor 1")
-                        time.sleep(0.1)
+                        time.sleep(0.05)
                         readDistance(enter_sensor)
                     counter-=1
                     pic = takePicture()
