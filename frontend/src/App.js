@@ -1,13 +1,12 @@
-import './App.css';
+import Info from "./components/info";
+import Title from "./components/title";
 
 function App() {
   return (
-    <div className="px-24 md:container md:mx-auto text-center">
-      <h1 className="py-24 text-4xl font-bold">
-       For All Times, There Exists A Space
-      </h1>
+    <div className="bg-zinc-400 min-h-screen">
+      <Title/>
+      <Info/>
     </div>
-    
   );
 }
 
