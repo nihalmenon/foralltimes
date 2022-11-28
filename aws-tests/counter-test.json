@@ -1,0 +1,56 @@
+{
+  "messages": [
+    {
+      "format": "json",
+      "payload": {
+        "direction": "In",
+        "counter": 1
+      },
+      "qos": 0,
+      "timestamp": 1668131377976,
+      "topic": "Test"
+    },
+    {
+      "format": "json",
+      "payload": {
+        "direction": "Out",
+        "counter": 1
+      },
+      "qos": 0,
+      "timestamp": 1668131378080,
+      "topic": "Test"
+    },
+    {
+      "format": "json",
+      "payload": {
+        "direction": "Out",
+        "counter": 1
+      },
+      "qos": 0,
+      "timestamp": 1668131378089,
+      "topic": "Test"
+    },
+    {
+      "format": "json",
+      "payload": {
+        "direction": "In",
+        "counter": 2
+      },
+      "qos": 0,
+      "timestamp": 1668131378089,
+      "topic": "Test"
+    },
+    {
+      "format": "json",
+      "payload": {
+        "direction": "In",
+        "counter": 2
+      },
+      "qos": 0,
+      "timestamp": 1668131378089,
+      "topic": "Test"
+    }
+  ],
+  "qos": 0,
+  "topicFilter": "Test"
+}
