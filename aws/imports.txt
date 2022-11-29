@@ -3,6 +3,3 @@ git clone https://github.com/aws/aws-iot-device-sdk-python
 sudo python setup.py install
 sudo pip install paho-mqtt
 sudo apt-get update
-
-
-note - run this command from Desktop of rapsi: python3 -m foralltimes.ultrasonic.test

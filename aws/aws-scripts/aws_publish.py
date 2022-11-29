@@ -1,3 +1,8 @@
+"""
+I'm wrting the code here, but a copy of this will be in the dir ultrasonic, to be called by main.py
+it was the easiest way to get the aws stuff working
+- Kieran
+"""
 # importing libraries
 import paho.mqtt.client as paho
 import os
@@ -35,8 +40,8 @@ awsport = 8883 # Port no.
 clientId = "raspberry_pi" # Thing_Name
 thingName = "raspberry_pi"
 
-#dirpath = "/Users/kieranhulsman/Coding/SE-101/foralltimes/foralltimes" # kieran's local
-dirpath = "/home/pi/Desktop/foralltimes/" # raspi
+dirpath = "/Users/kieranhulsman/Coding/SE-101/foralltimes/foralltimes/aws" # kieran's local (testing)
+#dirpath = "/home/pi/Desktop/foralltimes/" # raspi (actual)
 
 caPath = dirpath + "/aws-keys/AmazonRootCA1.pem"
 certPath = dirpath + "/aws-keys/18e60f6a557bb07c315742faf1d00480e4fb3db3cf8d6b403a1dc3aaff799d41-certificate.pem.crt"
@@ -49,15 +54,14 @@ mqttc.connect(awshost, awsport, keepalive=60) # connect to aws server
  
 mqttc.loop_start() # Start the loop
  
-# default code - will change later
+# testing
 while 1==1:
     sleep(5)
     if connflag == True:
         
         msg = {
             "time": "{}".format(datetime.now()),
-            "field1": "nice message",
-            "field2": "i love W-inear alg"
+            "field": "test passed"
         }
         msg = json.dumps(msg)
 
@@ -66,5 +70,4 @@ while 1==1:
         print(msg)
 
     else:
-        print("waiting for connection...")                      
-
+        print("waiting for connection...")

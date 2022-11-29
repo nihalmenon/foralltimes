@@ -3,8 +3,11 @@ import time
 from ultrasonic_sensor import UltrasonicSensor
 from event import Event
 
-from ei_aws_publish import *
+from aws_publish2 import *
 from thermalArray import takePicture
+
+# aws subscription topic
+aws_topic = "foralltimes"
 
 def setup(sensor):
     print("Setting up sensor: " + sensor.name)
@@ -13,9 +16,9 @@ def setup(sensor):
     GPIO.output(sensor.trigger, False)
 
 def sendPulse(sensor):
-    time.sleep(0.2)
+    time.sleep(0.5)
     GPIO.output(sensor.trigger, True)
-    time.sleep(0.00001)
+    time.sleep(0.00002)
     GPIO.output(sensor.trigger, False)
     print("Pulse sent from sensor: " + sensor.name)
 
@@ -70,7 +73,7 @@ def main():
     while i<20:
         print("Counter:", counter)
         readDistance(enter_sensor)
-        time.sleep(0.1)
+        time.sleep(0.25)
         readDistance(exit_sensor)
 
         if(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
@@ -88,13 +91,13 @@ def main():
                 if time.time() - start_time > 10:
                     print("10 second timeout")
                     break
-                time.sleep(0.05)
+                time.sleep(0.1)
                 readDistance(exit_sensor)
                 if(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                     
                     while(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                         print("Waiting for person to leave exit sensor")
-                        time.sleep(0.05)
+                        time.sleep(0.1)
                         readDistance(exit_sensor)
                     counter+=1
                     pic = takePicture()
@@ -106,13 +109,13 @@ def main():
                     }
                     # output.append(a)
                     x = json.dumps(a)
-                    mqttc.publish("Test", x, qos=1)
+                    mqttc.publish(aws_topic, x, qos=1)
                     break
         
         elif(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
             while(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                 print("Waiting for person to leave exit sensor 1")
-                time.sleep(0.05)
+                time.sleep(0.1)
                 readDistance(exit_sensor)
 
             # take 3 pictures
@@ -124,12 +127,12 @@ def main():
                 if time.time() - start_time > 10:
                     print("10 second timeout")
                     break
-                time.sleep(0.05)
+                time.sleep(0.1)
                 readDistance(enter_sensor)
                 if(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                     while(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                         print("Waiting for person to leave enter sensor 1")
-                        time.sleep(0.05)
+                        time.sleep(0.1)
                         readDistance(enter_sensor)
                     counter-=1
                     pic = takePicture()
@@ -142,7 +145,7 @@ def main():
                     # output.append(b)
                     
                     x = json.dumps(b)
-                    mqttc.publish("Test", x, qos=1)
+                    mqttc.publish(aws_topic, x, qos=1)
                     break
 
         i+=1
@@ -151,6 +154,7 @@ def main():
     #     mqttc.publish("Test", x, qos=1)
 
     GPIO.cleanup()
-        
+
+
 if __name__ == "__main__":
     main()
