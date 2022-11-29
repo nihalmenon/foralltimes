@@ -1,0 +1,5 @@
+AWS
+git clone https://github.com/aws/aws-iot-device-sdk-python
+sudo python setup.py install
+sudo pip install paho-mqtt
+sudo apt-get update
