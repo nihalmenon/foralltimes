@@ -1,0 +1,22 @@
+{
+  "name": "foralltimes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nihalmenon/foralltimes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nihalmenon/foralltimes/issues"
+  },
+  "homepage": "https://github.com/nihalmenon/foralltimes#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1264.0"
+  }
+}
