@@ -39,15 +39,14 @@ awsport = 8883 # Port no.
 clientId = "raspberry_pi" # Thing_Name
 thingName = "raspberry_pi"
 
-#dirpath = "/Users/kieranhulsman/Coding/SE-101/foralltimes/foralltimes/aws" # kieran's local (testing)
+#dirpath = "/Users/kieranhulsman/Coding/SE-101/SE101-project/foralltimes/aws" # kieran's local (testing)
 dirpath = "/home/pi/Desktop/foralltimes/aws" # raspi (actual)
 
 caPath = dirpath + "/aws-keys/AmazonRootCA1.pem"
 certPath = dirpath + "/aws-keys/18e60f6a557bb07c315742faf1d00480e4fb3db3cf8d6b403a1dc3aaff799d41-certificate.pem.crt"
 keyPath = dirpath + "/aws-keys/18e60f6a557bb07c315742faf1d00480e4fb3db3cf8d6b403a1dc3aaff799d41-private.pem.key"
 
-mqttc.tls_set(caPath, certfile=certPath, keyfile=keyPath, 
-              cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None) # pass parameters
+mqttc.tls_set(caPath, certfile=certPath, keyfile=keyPath, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2, ciphers=None) # pass parameters
  
 mqttc.connect(awshost, awsport, keepalive=60) # connect to aws server
  
