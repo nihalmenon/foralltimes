@@ -53,6 +53,7 @@ mqttc.connect(awshost, awsport, keepalive=60) # connect to aws server
  
 mqttc.loop_start() # Start the loop
 
+count = 1 # +/- 1
 
 while 1==1:
     sleep(5)
@@ -60,7 +61,7 @@ while 1==1:
     if connflag == True:
         
         a = {
-            "update": 1
+            "update": count
         }
 
         x = json.dumps(a)
