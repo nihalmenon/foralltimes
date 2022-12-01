@@ -60,16 +60,9 @@ if connflag == True:
     }
 
     x = json.dumps(a)
-    mqttc.publish("foralltimes", x, qos=1)    
+    mqttc.publish("foralltimes", x, qos=1)
 
 '''
-a = {
-    "update": 1
-}
-
-x = json.dumps(a)
-mqttc.publish("foralltimes", x, qos=1)
-
 # testing
 while 1==1:
     sleep(5)
