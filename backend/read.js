@@ -1,33 +1,41 @@
 const AWS = require('aws-sdk')
 
-// New ID key
-
 const awsConfig = {
-    "region": "",
-    "endpoint": "",
-    "accessKeyId": ""
+    "region": "us-east-2",
+    "endpoint": "dynamodb.us-east-2.amazonaws.com",
+    "accessKeyId": "AKIAY3JD2P25DDKKG5H4",
+    "secretAccessKey": "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"
 }
 AWS.config.update(awsConfig)
 
 const dynamoDB = new AWS.DynamoDB.DocumentClient()
 
-const fetchOneByKey = () => {
+const fetchOneByKey = async () => {
     const params = {
-        TableName: '',
+        TableName: 'foralltimesDB',
         Key: {
-            "id": ""
+            "id": 1
         }
     }
     try {
-        docClient.get(params, (error, data) => {
-            if(error) {
-                console.log("error: " + JSON.stringify(error, null, ))
-            }else{
-                console.log(JSON.stringify(data,null,2));
-            }
-        })
+        const data = await dynamoDB.get(params).promise()
+        const item = data.Item
+        return {counter: item.counter, time: item.time}
     } catch (e) {
         console.log('error: ' + e)
+        return e
     }
     
 }
+
+
+const getData = async () => {
+    try {
+        const item = await fetchOneByKey()
+        return {counter: item.counter, time: item.time}
+    } catch (e) {
+        return e
+    }
+}
+
+module.exports = getData
