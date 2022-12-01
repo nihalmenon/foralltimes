@@ -70,7 +70,7 @@ def main():
 
     output = []
 
-    while i<20:
+    while i<5:
         print("Counter:", counter)
         readDistance(enter_sensor)
         time.sleep(0.25)
@@ -102,10 +102,8 @@ def main():
                     counter+=1
                     pic = takePicture()
                     a = {
-                        'time': "{}".format(datetime.now()),
-                        'direction': 'In',
-                        'counter': counter,
-                        'thermal output': pic
+                        'update': 1,
+                        'time': "{}".format(datetime.now())
                     }
                     # output.append(a)
                     x = json.dumps(a)
@@ -137,10 +135,8 @@ def main():
                     counter-=1
                     pic = takePicture()
                     b = {
-                        'time': "{}".format(datetime.now()),
-                        'direction': 'Out',
-                        'counter': counter,
-                        'thermal output': pic
+                        'update': -1,
+                        'time': "{}".format(datetime.now())
                     }
                     # output.append(b)
                     

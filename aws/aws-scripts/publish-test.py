@@ -2,8 +2,7 @@
 from aws_publish import *
 
 a = {
-    "time": "{}".format(datetime.now()),
-    "msg": "me please lemme write it",
+    "counter": 1
 }
 
 x = json.dumps(a)
