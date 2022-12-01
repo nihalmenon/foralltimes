@@ -73,13 +73,13 @@ def main():
     while i<5:
         print("Counter:", counter)
         readDistance(enter_sensor)
-        time.sleep(0.25)
+        time.sleep(0.5)
         readDistance(exit_sensor)
 
         if(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
             while(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                 print("Waiting for person to leave enter sensor")
-                time.sleep(0.1)
+                time.sleep(0.2)
                 readDistance(enter_sensor)
 
             # take 3 pictures
@@ -91,13 +91,13 @@ def main():
                 if time.time() - start_time > 10:
                     print("10 second timeout")
                     break
-                time.sleep(0.1)
+                time.sleep(0.2)
                 readDistance(exit_sensor)
                 if(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                     
                     while(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                         print("Waiting for person to leave exit sensor")
-                        time.sleep(0.1)
+                        time.sleep(0.2)
                         readDistance(exit_sensor)
                     counter+=1
                     pic = takePicture()
@@ -107,12 +107,13 @@ def main():
                     # output.append(a)
                     x = json.dumps(a)
                     mqttc.publish(aws_topic, x, qos=1)
+                    sleep(5)
                     break
         
         elif(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
             while(exit_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                 print("Waiting for person to leave exit sensor 1")
-                time.sleep(0.1)
+                time.sleep(0.2)
                 readDistance(exit_sensor)
 
             # take 3 pictures
@@ -124,12 +125,12 @@ def main():
                 if time.time() - start_time > 10:
                     print("10 second timeout")
                     break
-                time.sleep(0.1)
+                time.sleep(0.2)
                 readDistance(enter_sensor)
                 if(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                     while(enter_sensor.distance < (WALL_DISTANCE - TOLERANCE)):
                         print("Waiting for person to leave enter sensor 1")
-                        time.sleep(0.1)
+                        time.sleep(0.2)
                         readDistance(enter_sensor)
                     counter-=1
                     pic = takePicture()
@@ -140,6 +141,7 @@ def main():
                     
                     x = json.dumps(b)
                     mqttc.publish(aws_topic, x, qos=1)
+                    sleep(5)
                     break
 
         i+=1

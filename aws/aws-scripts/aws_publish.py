@@ -53,35 +53,39 @@ mqttc.connect(awshost, awsport, keepalive=60) # connect to aws server
  
 mqttc.loop_start() # Start the loop
 
-sleep(5)
-if connflag == True:
-    a = {
-        "update": 1
-    }
+count = 1 # +/- 1
 
-    x = json.dumps(a)
-    mqttc.publish("foralltimes", x, qos=1)
+while 1==1:
+    sleep(5)
+
+    if connflag == True:
+        
+        a = {
+            "update": count
+        }
+
+        x = json.dumps(a)
+        mqttc.publish("foralltimes", x, qos=1)
+        sleep(5)
+        break
 
 '''
 # testing
+i=0
 while 1==1:
+    #if i>0: break
     sleep(5)
     if connflag == True:
         
-        msg = {
-            "time": "{}".format(datetime.now()),
-            "counter": "test passed"
-        }
         a = {
             "update": 1
         }
 
         x = json.dumps(a)
         mqttc.publish("foralltimes", x, qos=1)
-        
+        i+=1
         #msg = json.dumps(msg)
 
-        #mqttc.publish("foralltimes", msg , qos=1)       
         print("msg sent")
         print(x)
 
