@@ -40,8 +40,8 @@ awsport = 8883 # Port no.
 clientId = "raspberry_pi" # Thing_Name
 thingName = "raspberry_pi"
 
-#dirpath = "/Users/kieranhulsman/Coding/SE-101/SE101-project/foralltimes/aws" # kieran's local (testing)
-dirpath = "/home/pi/Desktop/foralltimes/aws" # raspi (actual)
+dirpath = "/Users/kieranhulsman/Coding/SE-101/SE101-project/foralltimes/aws" # kieran's local (testing)
+#dirpath = "/home/pi/Desktop/foralltimes/aws" # raspi (actual)
 
 caPath = dirpath + "/aws-keys/AmazonRootCA1.pem"
 certPath = dirpath + "/aws-keys/18e60f6a557bb07c315742faf1d00480e4fb3db3cf8d6b403a1dc3aaff799d41-certificate.pem.crt"
@@ -52,7 +52,24 @@ mqttc.tls_set(caPath, certfile=certPath, keyfile=keyPath, cert_reqs=ssl.CERT_REQ
 mqttc.connect(awshost, awsport, keepalive=60) # connect to aws server
  
 mqttc.loop_start() # Start the loop
- 
+
+sleep(5)
+if connflag == True:
+    a = {
+        "update": 1
+    }
+
+    x = json.dumps(a)
+    mqttc.publish("foralltimes", x, qos=1)    
+
+'''
+a = {
+    "update": 1
+}
+
+x = json.dumps(a)
+mqttc.publish("foralltimes", x, qos=1)
+
 # testing
 while 1==1:
     sleep(5)
@@ -60,13 +77,21 @@ while 1==1:
         
         msg = {
             "time": "{}".format(datetime.now()),
-            "field": "test passed"
+            "counter": "test passed"
         }
-        msg = json.dumps(msg)
+        a = {
+            "update": 1
+        }
 
-        mqttc.publish("foralltimes", msg , qos=1)       
+        x = json.dumps(a)
+        mqttc.publish("foralltimes", x, qos=1)
+        
+        #msg = json.dumps(msg)
+
+        #mqttc.publish("foralltimes", msg , qos=1)       
         print("msg sent")
-        print(msg)
+        print(x)
 
     else:
         print("waiting for connection...")
+'''
