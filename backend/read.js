@@ -39,6 +39,5 @@ const getData = async () => {
     }
 }
 
-console.log(getData())
 
 module.exports = getData
