@@ -102,8 +102,7 @@ def main():
                     counter+=1
                     pic = takePicture()
                     a = {
-                        'update': 1,
-                        'time': "{}".format(datetime.now())
+                        'update': 1
                     }
                     # output.append(a)
                     x = json.dumps(a)
@@ -135,8 +134,7 @@ def main():
                     counter-=1
                     pic = takePicture()
                     b = {
-                        'update': -1,
-                        'time': "{}".format(datetime.now())
+                        'update': -1
                     }
                     # output.append(b)
                     
