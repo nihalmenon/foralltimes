@@ -40,7 +40,7 @@ clientId = "raspberry_pi" # Thing_Name
 thingName = "raspberry_pi"
 
 #dirpath = "/Users/kieranhulsman/Coding/SE-101/SE101-project/foralltimes/aws" # kieran's local (testing)
-dirpath = "/home/pi/Desktop/foralltimes/aws" # raspi (actual)
+dirpath = "/home/se101/Desktop/foralltimes/aws" # raspi (actual)
 
 caPath = dirpath + "/aws-keys/AmazonRootCA1.pem"
 certPath = dirpath + "/aws-keys/18e60f6a557bb07c315742faf1d00480e4fb3db3cf8d6b403a1dc3aaff799d41-certificate.pem.crt"
