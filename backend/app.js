@@ -55,7 +55,6 @@ const fetchOneByKey = async () => {
 const getData = async () => {
     try {
         const item = await fetchOneByKey()
-        // document.getElementById('counter') = item.counter
         return {counter: item.counter, time: item.time}
     } catch (e) {
         return e
