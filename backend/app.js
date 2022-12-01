@@ -1,3 +1,26 @@
+const path = require('path')
+const express = require('express')
+const hbs = require('hbs')
+
+// const getData = require('./read')
+
+const app = express()
+const port = process.env.PORT || 3000
+
+// Define paths for Express config
+const publicDirectoryPath = path.join(__dirname, '../public')
+const viewsPath = path.join(__dirname, '../templates/views')
+const partialsPath = path.join(__dirname, '../templates/partials')
+
+
+// Setup handlebars engine and views location
+app.set('view engine', 'hbs')
+app.set('views', viewsPath)
+hbs.registerPartials(partialsPath)
+
+// Setup static directory to serve
+app.use(express.static(publicDirectoryPath))
+
 const AWS = require('aws-sdk')
 
 const awsConfig = {
@@ -39,6 +62,15 @@ const getData = async () => {
     }
 }
 
-console.log(getData())
+app.get('', async (req, res) => {
+    const data = await getData()
+    const time = data.time.substring(11,19)
+    res.render('index', {
+        counter: data.counter,
+        time: time
+    })
+})
 
-module.exports = getData
+app.listen(port, () => {
+    console.log('Server is up on port ' + port)
+})
