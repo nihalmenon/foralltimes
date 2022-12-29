@@ -72,7 +72,10 @@ app.get('', async (req, res) => {
     // const time =  new String(hours) + ':' + new String(minutes) + ':' + new String(seconds)
 
     const str = new Date().toLocaleString('en-US', { timeZone: 'America/Toronto' });
-    const time = str.slice(12)
+    let time = str.slice(11)
+    if (time[0] === ' ') {
+        time = time.slice(1)
+    }
 
     res.render('index', {
         counter: data.counter,
