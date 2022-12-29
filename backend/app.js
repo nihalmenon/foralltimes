@@ -64,11 +64,16 @@ const getData = async () => {
 app.get('', async (req, res) => {
     const data = await getData()
     // const time = data.time.substring(11,19)
-    const today = new Date()
-    const hours = today.getHours()
-    const minutes = today.getMinutes() < 10 ? '0' + today.getMinutes() : today.getMinutes()
-    const seconds = today.getSeconds() < 10 ? '0' + today.getSeconds() : today.getSeconds()
-    const time =  new String(hours) + ':' + new String(minutes) + ':' + new String(seconds)
+    
+    // const today = new Date()
+    // const hours = today.getHours()
+    // const minutes = today.getMinutes() < 10 ? '0' + today.getMinutes() : today.getMinutes()
+    // const seconds = today.getSeconds() < 10 ? '0' + today.getSeconds() : today.getSeconds()
+    // const time =  new String(hours) + ':' + new String(minutes) + ':' + new String(seconds)
+
+    const str = new Date().toLocaleString('en-US', { timeZone: 'America/Toronto' });
+    const time = str.slice(12)
+
     res.render('index', {
         counter: data.counter,
         time: time
