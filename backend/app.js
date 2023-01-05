@@ -67,10 +67,10 @@ moment.tz.setDefault("America/New_York");
 
 app.get('', async (req, res) => {
     const data = await getData()
-
+    const time = new Date().getTime()
     res.render('index', {
         counter: data.counter,
-        time: moment().format('h:mm a')
+        time: moment(time).format('h:mm a')
     })
 })
 
