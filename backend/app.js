@@ -68,7 +68,7 @@ app.get('', async (req, res) => {
     const time = new Date().getTime()
     res.render('index', {
         counter: data.counter,
-        time: moment(time).add(5, 'hours').format('h:mm a')
+        time: moment(time).subtract(5, 'hours').format('h:mm a')
     })
 })
 
