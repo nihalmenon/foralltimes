@@ -63,8 +63,6 @@ const getData = async () => {
     }
 }
 
-moment.tz.setDefault("America/New_York");
-
 app.get('', async (req, res) => {
     const data = await getData()
     const time = new Date().getTime()
